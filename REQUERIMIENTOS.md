@@ -56,8 +56,9 @@ pip install -r requirements.txt
 Todos los computadores deben poder comunicarse a través de TCP/IP en la red:
 
 ### 4.1. Puertos Utilizados
-* **Puerto `8000` (TCP):** Utilizado por el Agente (`agent.py`) en **todos los computadores** para responder métricas y recibir tareas.
+* **Puerto `8000` (TCP):** Utilizado por el Agente (`agent.py`) en **todos los computadores** para responder métricas, registro dinámico y recibir tareas.
 * **Puerto `8501` (TCP):** Utilizado por el Panel de Control Streamlit (`dashboard.py`), únicamente en el **Computador Maestro**.
+* **Puerto `8555` (UDP):** Utilizado para el **Auto-descubrimiento en red local**, permitiendo que los nuevos equipos detecten al Maestro automáticamente sin necesidad de escribir IPs a mano.
 
 ### 4.2. Topología de Red
 * **Opción A (Red Local LAN / Wi-Fi):** Todos los computadores deben estar conectados al mismo enrutador/módem. Asegúrate de que el router no tenga activado el aislamiento de clientes (*AP Isolation*).
@@ -84,27 +85,42 @@ sudo ufw allow 8000/tcp
 
 ## 6. Procedimiento para Conectar Nuevos PCs al Clúster
 
-### En los PCs Secundarios (Nodos Trabajadores):
-1. Copia la carpeta del proyecto a ese equipo (o los archivos `Run.py`, `agent.py` y `requirements.txt`).
-2. Abre la terminal en esa carpeta y ejecuta:
+### Método 1: Conexión Automática (Recomendada - Cero Configuración de IPs)
+1. Inicia el PC Maestro ejecutando `python Run.py` (o `python Run.py --all`).
+2. En cualquier otro PC de la misma red, abre la terminal y ejecuta simplemente:
+   ```bash
+   python Run.py
+   ```
+3. `Run.py` emitirá un escaneo rápido por UDP y detectará al Maestro:
+   ```text
+   ====================================================================
+     ✨ ¡SE HA DETECTADO UN CLÚSTER ACTIVO EN LA RED LOCAL!
+     - Nodo Maestro:  DESKTOP-COFQL6K (192.168.101.13)
+     - Panel Web:     http://192.168.101.13:8501
+   ====================================================================
+   ¿Deseas conectar este computador a ese clúster como Nodo de Trabajo? [S/n]:
+   ```
+4. Presiona **Enter** (o escribe `S`). El equipo iniciará su agente, se registrará automáticamente en el Maestro y aparecerá en el Dashboard al instante.
+
+---
+
+### Método 2: Conexión Manual (o para redes con aislamiento de broadcast)
+#### En los PCs Secundarios (Nodos Trabajadores):
+1. Copia la carpeta del proyecto a ese equipo (`Run.py`, `agent.py`, `discovery.py` y `requirements.txt`).
+2. Abre la terminal y ejecuta:
    ```bash
    python Run.py --agent
    ```
 3. El script mostrará en pantalla la dirección IP del equipo (por ejemplo: `192.168.101.45`).
 
-### En el PC Maestro (Panel de Control):
-1. Inicia el Maestro con:
-   ```bash
-   python Run.py --all
-   ```
-2. Se abrirá el navegador en `http://localhost:8501`.
-3. Puedes probar la conexión directamente en la pestaña **"🚀 Guía de Conexión de Nuevos PCs"** usando el **Probador de Conexión en Vivo**.
-4. En la barra lateral izquierda, agrega la IP del nuevo equipo con el puerto `:8000`:
+#### En el PC Maestro (Panel de Control):
+1. Inicia el Maestro con `python Run.py --all`.
+2. En la barra lateral izquierda, agrega la IP del nuevo equipo con el puerto `:8000`:
    ```text
    127.0.0.1:8000
    192.168.101.45:8000
    ```
-5. Regresa a la pestaña **"📊 Panel de Control y Monitoreo"** y verás el nuevo nodo en estado **ONLINE** sumando su hardware al clúster.
+3. El nuevo nodo cambiará a estado **ONLINE** sumando sus recursos.
 
 ---
 

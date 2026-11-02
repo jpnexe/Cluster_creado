@@ -6,12 +6,17 @@ import psutil
 from fastapi import FastAPI
 from pydantic import BaseModel
 import uvicorn
+import discovery
 
 app = FastAPI(title="Agente de Nodo del Clúster")
 
 class TaskRequest(BaseModel):
     task_id: str
     complexity: int  # Número hasta el cual calcular para simular carga
+
+class NodeRegistration(BaseModel):
+    address: str
+    hostname: str = ""
 
 @app.get("/metrics")
 def get_metrics():
@@ -49,7 +54,33 @@ def execute_task(task: TaskRequest):
         "result_sample": resultado
     }
 
+@app.post("/register_node")
+def register_node(node: NodeRegistration):
+    """Registra automáticamente un nuevo nodo trabajador en la lista compartida."""
+    clean_addr = node.address.strip()
+    added = discovery.add_node_to_list(clean_addr)
+    return {
+        "status": "SUCCESS",
+        "address": clean_addr,
+        "registered": added
+    }
+
+@app.post("/unregister_node")
+def unregister_node(node: NodeRegistration):
+    """Desvincula un nodo de la lista al apagarse."""
+    clean_addr = node.address.strip()
+    removed = discovery.remove_node_from_list(clean_addr)
+    return {
+        "status": "SUCCESS",
+        "address": clean_addr,
+        "removed": removed
+    }
+
+@app.get("/nodes")
+def get_nodes():
+    """Retorna la lista actual de nodos registrados."""
+    return {"nodes": discovery.load_nodes_list()}
+
 if __name__ == "__main__":
     # Se ejecuta en 0.0.0.0 para que sea accesible desde otros PCs en la red
     uvicorn.run(app, host="0.0.0.0", port=8000)
-

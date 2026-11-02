@@ -2,17 +2,14 @@
 ====================================================================
 Script de Ejecución Principal (Run.py) - Clúster Distribuido en Python
 ====================================================================
-Este script permite iniciar fácilmente los diferentes componentes
-del proyecto según el rol de la máquina en el clúster:
-
-  1) Maestro Completo (Agente Local + Panel Streamlit) [Recomendado]
-  2) Solo Panel de Control (Dashboard Streamlit)
-  3) Solo Agente de Nodo (FastAPI Worker para PC 1, PC 2, PC 3...)
-
-Soporta argumentos por línea de comandos:
-  python Run.py --all         # Ejecuta Agente + Dashboard
-  python Run.py --agent       # Ejecuta solo el Agente
-  python Run.py --dashboard   # Ejecuta solo el Panel de Control
+Características:
+  - Detección automática de Clústeres activos en la red local (UDP).
+  - Pregunta al usuario si desea unirse automáticamente al clúster detectado.
+  - Registro dinámico y desvinculación limpia de nodos.
+  - Soporte de roles manuales:
+      python Run.py --all         # Inicia Maestro Completo (Agente + Dashboard)
+      python Run.py --agent       # Inicia solo Agente Trabajador
+      python Run.py --dashboard   # Inicia solo Panel de Control
 ====================================================================
 """
 
@@ -23,9 +20,13 @@ import socket
 import subprocess
 import sys
 import time
+import requests
+import discovery
 
 REQUIRED_PACKAGES = ["fastapi", "uvicorn", "psutil", "streamlit", "requests", "pandas"]
 PROCESSES = []
+DISCOVERY_SERVER = None
+REGISTERED_MASTER_IP = None
 
 
 def print_banner():
@@ -64,7 +65,6 @@ def get_local_network_ips():
         for iface_name, addrs in psutil.net_if_addrs().items():
             for addr in addrs:
                 if addr.family == socket.AF_INET and not addr.address.startswith("127."):
-                    # Preferencia a direcciones no APIPA (169.254.x.x)
                     is_apipa = addr.address.startswith("169.254.")
                     ips.append((iface_name, addr.address, is_apipa))
     except Exception:
@@ -79,13 +79,12 @@ def get_local_network_ips():
         except Exception:
             pass
 
-    # Ordenar poniendo las IPs normales antes de APIPA
     ips.sort(key=lambda x: (x[2], x[0]))
     return ips
 
 
 def show_network_info():
-    """Muestra información de red útil para conectar otros nodos."""
+    """Muestra información de red útil."""
     hostname = socket.gethostname()
     print(f"[*] Nombre de este equipo (Hostname): {hostname}")
     ips = get_local_network_ips()
@@ -97,14 +96,38 @@ def show_network_info():
             if not is_apipa:
                 print(f"      -> URL del Agente para otros PCs: http://{ip}:8000")
     else:
-        print("    - No se detectaron IPs adicionales a 127.0.0.1")
+        print("    - No se detectaron IPs de red adicionales a 127.0.0.1")
     print("-" * 68)
 
 
 def terminate_all_processes():
-    """Finaliza todos los subprocesos de forma limpia."""
+    """Finaliza todos los subprocesos y desvincula el nodo de forma limpia."""
+    global DISCOVERY_SERVER, REGISTERED_MASTER_IP
+
+    # Si estamos conectados a un maestro, desvincularse
+    if REGISTERED_MASTER_IP:
+        try:
+            my_ip = discovery.get_primary_ip()
+            print(f"\n[*] Desvinculando este nodo del Maestro ({REGISTERED_MASTER_IP})...")
+            requests.post(
+                f"http://{REGISTERED_MASTER_IP}:8000/unregister_node",
+                json={"address": f"{my_ip}:8000", "hostname": socket.gethostname()},
+                timeout=1.5
+            )
+        except Exception:
+            pass
+        REGISTERED_MASTER_IP = None
+
+    if DISCOVERY_SERVER:
+        try:
+            DISCOVERY_SERVER.stop()
+        except Exception:
+            pass
+        DISCOVERY_SERVER = None
+
     if not PROCESSES:
         return
+
     print("\n[*] Cerrando servicios del clúster...")
     for proc, name in PROCESSES:
         if proc.poll() is None:
@@ -158,6 +181,23 @@ def start_dashboard():
     return proc
 
 
+def start_discovery_server():
+    """Inicia el servidor UDP para que otros equipos encuentren a este Maestro."""
+    global DISCOVERY_SERVER
+    if DISCOVERY_SERVER is None:
+        try:
+            DISCOVERY_SERVER = discovery.MasterDiscoveryServer(
+                master_ip=discovery.get_primary_ip(),
+                hostname=socket.gethostname(),
+                dashboard_port=8501,
+                agent_port=8000
+            )
+            DISCOVERY_SERVER.start()
+            print("[+] Servicio de auto-descubrimiento en red activado (UDP puerto 8555).")
+        except Exception as e:
+            print(f"[*] Nota sobre auto-descubrimiento: {e}")
+
+
 def wait_for_processes():
     """Monitorea los procesos y espera hasta Ctrl+C o cierre de proceso."""
     print("\n[+] Servicios en ejecución. Presiona Ctrl+C en cualquier momento para detener.\n")
@@ -174,6 +214,40 @@ def wait_for_processes():
         terminate_all_processes()
 
 
+def connect_as_worker_to_master(master_ip, master_hostname):
+    """Inicia el agente y lo registra automáticamente en el Maestro."""
+    global REGISTERED_MASTER_IP
+    print(f"\n[*] Conectando este equipo al clúster de '{master_hostname}' ({master_ip})...")
+    start_agent()
+    time.sleep(1.5)  # Esperar que el agente local esté listo
+
+    my_ip = discovery.get_primary_ip()
+    my_address = f"{my_ip}:8000"
+    REGISTERED_MASTER_IP = master_ip
+
+    print(f"[*] Registrando dirección `{my_address}` en el Maestro...")
+    try:
+        resp = requests.post(
+            f"http://{master_ip}:8000/register_node",
+            json={"address": my_address, "hostname": socket.gethostname()},
+            timeout=3.0
+        )
+        if resp.status_code == 200:
+            print(f"\n====================================================================")
+            print(f"  ✅ ¡CONEXIÓN EXITOSA AL CLÚSTER!")
+            print(f"  - Maestro:            {master_hostname} ({master_ip})")
+            print(f"  - Este Nodo:          {socket.gethostname()} ({my_address})")
+            print(f"  - Estado en el panel: ONLINE (recursos aportados y listos)")
+            print(f"====================================================================")
+        else:
+            print(f"[*] Aviso: El agente maestro respondió código {resp.status_code}, pero tu agente está activo.")
+    except Exception as e:
+        print(f"[!] No se pudo registrar automáticamente en el endpoint del Maestro: {e}")
+        print(f"    (Puedes agregar manualmente `{my_address}` en el panel web del Maestro).")
+
+    wait_for_processes()
+
+
 def main():
     signal.signal(signal.SIGINT, signal_handler)
     signal.signal(signal.SIGTERM, signal_handler)
@@ -183,7 +257,7 @@ def main():
         "--mode",
         choices=["all", "agent", "dashboard"],
         default=None,
-        help="Modo de ejecución: 'all' (Agente + Dashboard), 'agent' (solo agente), 'dashboard' (solo panel)"
+        help="Modo de ejecución: 'all' (Maestro Completo), 'agent' (solo agente), 'dashboard' (solo panel)"
     )
     parser.add_argument("--all", action="store_true", help="Iniciar Maestro Completo (Agente + Dashboard)")
     parser.add_argument("--agent", action="store_true", help="Iniciar solo el Agente de Nodo")
@@ -195,18 +269,53 @@ def main():
     check_and_install_dependencies()
     show_network_info()
 
-    # Determinar modo
-    mode = args.mode
+    # Si se pasó un argumento explícito por CLI, ejecutar directamente
     if args.all:
         mode = "all"
     elif args.agent:
         mode = "agent"
     elif args.dashboard:
         mode = "dashboard"
+    elif args.mode:
+        mode = args.mode
+    else:
+        # --- DETECCIÓN AUTOMÁTICA DE CLÚSTER EXISTENTE ---
+        print("[*] Buscando si ya existe un Clúster activo en la red local...")
+        discovered = discovery.discover_cluster(timeout=1.2)
 
-    if mode is None:
+        if discovered:
+            m_host = discovered.get("hostname", "Desconocido")
+            m_ip = discovered.get("master_ip", discovered.get("detected_ip"))
+            d_port = discovered.get("dashboard_port", 8501)
+
+            print(r"""
+====================================================================
+  ✨ ¡SE HA DETECTADO UN CLÚSTER ACTIVO EN LA RED LOCAL!
+--------------------------------------------------------------------
+  - Nodo Maestro:  {host}
+  - Dirección IP:  {ip}
+  - Panel Web:     http://{ip}:{port}
+====================================================================
+            """.format(host=m_host, ip=m_ip, port=d_port))
+
+            try:
+                ans = input("¿Deseas conectar este computador a ese clúster como Nodo de Trabajo? [S/n] (Por defecto S): ").strip().lower()
+            except (EOFError, KeyboardInterrupt):
+                print("\nOperación cancelada.")
+                return
+
+            if ans in ("", "s", "si", "y", "yes"):
+                connect_as_worker_to_master(m_ip, m_host)
+                return
+            else:
+                print("\n[*] Omitiendo conexión al clúster detectado.")
+
+        else:
+            print("[*] No se detectó ningún clúster activo en la red local.")
+
+        # Menú interactivo estándar
         if sys.stdin.isatty():
-            print("Selecciona el modo de inicio para este computador:")
+            print("\nSelecciona el rol para este computador:")
             print("  [1] Maestro Completo (Agente Local + Panel de Control Streamlit) [Recomendado]")
             print("  [2] Solo Panel de Control (Dashboard Streamlit)")
             print("  [3] Solo Agente (Microservicio FastAPI para computadores trabajadores)")
@@ -232,18 +341,20 @@ def main():
     print(f"\n[*] Modo seleccionado: {mode.upper()}\n")
 
     if mode == "all":
+        # Al iniciar como Maestro, activar descubrimiento UDP para que otros equipos lo encuentren
+        start_discovery_server()
         start_agent()
-        time.sleep(1.5)  # Breve pausa para que el agente levante en puerto 8000
+        time.sleep(1.5)
         start_dashboard()
         wait_for_processes()
     elif mode == "agent":
         start_agent()
         wait_for_processes()
     elif mode == "dashboard":
+        start_discovery_server()
         start_dashboard()
         wait_for_processes()
 
 
 if __name__ == "__main__":
     main()
-

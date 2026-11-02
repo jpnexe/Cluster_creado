@@ -4,12 +4,27 @@ from concurrent.futures import ThreadPoolExecutor
 import pandas as pd
 import requests
 import streamlit as st
+import discovery
 
 st.set_page_config(
     page_title="Cluster Control Panel",
     page_icon="🖥️",
     layout="wide"
 )
+
+# Iniciar servidor de descubrimiento UDP en el Maestro si aún no está corriendo
+if "discovery_server" not in st.session_state:
+    try:
+        disc = discovery.MasterDiscoveryServer(
+            master_ip=discovery.get_primary_ip(),
+            hostname=socket.gethostname(),
+            dashboard_port=8501,
+            agent_port=8000
+        )
+        disc.start()
+        st.session_state["discovery_server"] = disc
+    except Exception:
+        pass
 
 def get_local_ips():
     """Detecta las IPs locales para facilitar la configuración en la red."""
@@ -36,18 +51,32 @@ def get_local_ips():
 
 # --- CONFIGURACIÓN DE NODOS EN LA BARRA LATERAL ---
 st.sidebar.title("Configuración del Clúster")
-default_ips = "127.0.0.1:8000\n192.168.1.102:8000\n192.168.1.103:8000"
+
+# Cargar nodos guardados y registrados automáticamente
+saved_nodes = discovery.load_nodes_list()
+if not saved_nodes:
+    saved_nodes = ["127.0.0.1:8000"]
+    discovery.save_nodes_list(saved_nodes)
+
+default_ips_str = "\n".join(saved_nodes)
+
 nodes_input = st.sidebar.text_area(
     "IPs de los Nodos (una por línea):",
-    value=default_ips,
-    height=120
+    value=default_ips_str,
+    height=120,
+    help="Puedes agregar o quitar IPs manualmente. Los nodos que ejecuten Run.py se agregarán aquí automáticamente."
 )
+
 auto_refresh = st.sidebar.checkbox("Actualización automática (cada 2 seg)", value=False)
 
-st.sidebar.markdown("---")
-st.sidebar.info("💡 **Consejo:** Para conectar nuevos PCs, consulta la pestaña **'🚀 Guía de Conexión de Nuevos PCs'** arriba.")
-
 node_addresses = [ip.strip() for ip in nodes_input.split("\n") if ip.strip()]
+
+# Sincronizar cambios manuales del cuadro de texto con nodes.json
+if set(node_addresses) != set(saved_nodes):
+    discovery.save_nodes_list(node_addresses)
+
+st.sidebar.markdown("---")
+st.sidebar.info("💡 **Descubrimiento Activo:** Nuevos PCs que ejecuten `Run.py` detectarán este clúster y se registrarán de forma automática.")
 
 def fetch_node_metrics(address):
     """Consulta el endpoint /metrics de un computador del clúster."""
@@ -95,6 +124,14 @@ with ThreadPoolExecutor(max_workers=15) as executor:
     nodes_data = list(executor.map(fetch_node_metrics, node_addresses))
 
 online_nodes = [n for n in nodes_data if n["status"] == "ONLINE"]
+
+# Botón en sidebar para limpiar desconectados
+if st.sidebar.button("🗑️ Eliminar Nodos Desconectados"):
+    active_addrs = [n["address"] for n in online_nodes]
+    if "127.0.0.1:8000" not in active_addrs:
+        active_addrs.append("127.0.0.1:8000")
+    discovery.save_nodes_list(active_addrs)
+    st.rerun()
 
 # --- PESTAÑAS PRINCIPALES ---
 tab_monitor, tab_guide = st.tabs([
@@ -151,7 +188,7 @@ with tab_monitor:
                 st.error(f"🔴 **Nodo Offline**")
                 st.caption(f"Dirección: `{node['address']}`")
                 st.write("No se detecta respuesta del agente en este puerto.")
-                st.caption("Verifica que el agente esté corriendo y el firewall permita el puerto 8000.")
+                st.caption("Verifica que el agente esté corriendo o elimina el nodo de la barra lateral.")
 
     st.divider()
 
@@ -209,8 +246,7 @@ with tab_monitor:
 with tab_guide:
     st.title("Guía Visual: Cómo Conectar Nuevos Computadores al Clúster")
     st.markdown("""
-    Esta guía te explica de forma clara y paso a paso cómo conectar **PC 2, PC 3 o cualquier computador adicional** 
-    para que aporte sus procesadores y memoria RAM a este clúster.
+    ¡Ahora es más fácil que nunca! El sistema cuenta con **detección y autoconexión automática** por red local.
     """)
 
     # Información de red de este equipo
@@ -228,66 +264,44 @@ with tab_guide:
 
     st.markdown("---")
 
-    # Pasos estructurados
+    # Pasos estructurados con autoconexión
+    st.markdown("### ⚡ Conexión Automática con `Run.py` (Recomendada)")
+    st.success("""
+    **En el nuevo computador:**
+    1. Asegúrate de estar conectado a la misma red Wi-Fi o red LAN.
+    2. Ejecuta simplemente: `python Run.py`
+    3. `Run.py` detectará este computador Maestro automáticamente y te preguntará:
+       `¿Deseas conectar este equipo al clúster? [S/n]`
+    4. Pulsa **Enter** o escribe **S** y ¡listo! El nuevo computador se registrará de inmediato en este panel sin necesidad de escribir IPs a mano.
+    """)
+
     col_p1, col_p2 = st.columns(2)
 
     with col_p1:
         with st.container(border=True):
-            st.markdown("### 🔌 Paso 1: Conexión de Red")
+            st.markdown("### 📁 Archivos Necesarios en el Otro PC")
             st.markdown("""
-            Todos los computadores deben poder comunicarse entre sí:
-            * **Misma red Wi-Fi o Cable Ethernet:** Conecta los computadores al mismo módem o router.
-            * **Computadores en casas distintas (Opcional):** Instala [Tailscale](https://tailscale.com/) en cada uno y conéctalos a la misma cuenta para crear una red privada virtual directa.
-            """)
-
-        with st.container(border=True):
-            st.markdown("### 📁 Paso 2: Copiar el Código al Otro PC")
-            st.markdown("""
-            En el computador nuevo (PC 2, PC 3...):
-            1. Copia los archivos del proyecto (mediante memoria USB, Git, o carpeta compartida).
-            2. Solo necesitas asegurar que tenga estos 3 archivos:
-               * `agent.py`
-               * `Run.py`
-               * `requirements.txt`
-            3. Debe tener instalado **Python 3.10+**.
+            Solo necesitas copiar estos archivos al nuevo equipo:
+            * `Run.py`
+            * `agent.py`
+            * `discovery.py`
+            * `requirements.txt`
             """)
 
     with col_p2:
         with st.container(border=True):
-            st.markdown("### ⚙️ Paso 3: Iniciar el Agente en el Nuevo PC")
+            st.markdown("### 🛡️ Firewall (Puerto 8000)")
             st.markdown("""
-            Abre una terminal o símbolo del sistema en la carpeta del proyecto en ese PC y ejecuta:
-            """)
-            st.code("python Run.py --agent", language="bash")
-            st.markdown("""
-            * Al iniciar, `Run.py` instalará automáticamente las dependencias si faltan.
-            * Verás en pantalla la **dirección IP** asignada a ese equipo (ej. `192.168.101.45`).
-            """)
-
-        with st.container(border=True):
-            st.markdown("### 🛡️ Paso 4: Firewall (Permitir Puerto 8000)")
-            st.markdown("""
-            Si Windows muestra una ventana solicitando permisos de red, marca **Redes privadas** y presiona **Permitir acceso**.
-            
-            Para permitirlo manualmente por comando (PowerShell como Administrador):
+            Si Windows solicita permisos de red, marca **Redes privadas** y presiona **Permitir acceso**.
+            O ejecuta en PowerShell como Administrador:
             """)
             st.code('New-NetFirewallRule -DisplayName "Cluster Agent 8000" -Direction Inbound -LocalPort 8000 -Protocol TCP -Action Allow', language="powershell")
-
-    with st.container(border=True):
-        st.markdown("### 📝 Paso 5: Registrar la IP en este Panel de Control")
-        st.markdown("""
-        1. Regresa a este navegador en el PC Maestro.
-        2. En la barra lateral izquierda, localiza el cuadro **"IPs de los Nodos"**.
-        3. Añade la IP del nuevo computador con el puerto `:8000` en una nueva línea.
-        """)
-        st.code("127.0.0.1:8000\n192.168.101.45:8000  # <- Reemplaza por la IP de tu nuevo PC", language="text")
-        st.markdown("4. Ve a la pestaña **'📊 Panel de Control y Monitoreo'** y verás que el nuevo PC aparece en verde como **ONLINE** sumando sus recursos.")
 
     st.markdown("---")
 
     # Probador de Conexión en Vivo
-    st.subheader("🧪 Probador de Conexión en Vivo")
-    st.markdown("Usa esta herramienta para verificar si este PC Maestro puede comunicarse con el microservicio de un nuevo PC antes de agregarlo permanentemente:")
+    st.subheader("🧪 Probador Manual de Conexión en Vivo")
+    st.markdown("Si deseas verificar manualmente la conectividad hacia un computador específico:")
 
     col_test1, col_test2 = st.columns([3, 1])
     with col_test1:
@@ -327,13 +341,15 @@ with tab_guide:
                             "Memoria RAM Total": f"{m_data.get('ram_total_gb')} GB",
                             "Memoria RAM Libre": f"{m_data.get('ram_available_gb')} GB"
                         })
-                        st.info(f"💡 Copia `{clean_test}` y pégalo en la barra lateral izquierda para integrarlo al clúster.")
+                        # Añadir automáticamente si no está
+                        if discovery.add_node_to_list(clean_test):
+                            st.info(f"✅ Se añadió `{clean_test}` a la lista de nodos del clúster.")
                     else:
                         st.error(f"El nodo respondió pero devolvió código HTTP {resp.status_code}.")
                 except requests.exceptions.ConnectTimeout:
-                    st.error(f"❌ Tiempo de espera agotado al conectar a `{clean_test}`. Es muy probable que el Firewall de Windows esté bloqueando el puerto 8000 en el otro PC o que no estén en la misma red.")
+                    st.error(f"❌ Tiempo de espera agotado al conectar a `{clean_test}`. Es probable que el Firewall de Windows esté bloqueando el puerto 8000 en el otro PC o que no estén en la misma red.")
                 except requests.exceptions.ConnectionError:
-                    st.error(f"❌ Conexión rechazada en `{clean_test}`. Verifica que ejecutaste `python Run.py --agent` en ese equipo y que la IP sea la correcta.")
+                    st.error(f"❌ Conexión rechazada en `{clean_test}`. Verifica que ejecutaste el agente en ese equipo.")
                 except Exception as e:
                     st.error(f"❌ Error al conectar: {str(e)}")
 
