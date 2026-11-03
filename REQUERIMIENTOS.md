@@ -41,7 +41,8 @@ El clúster utiliza las siguientes librerías de Python:
 | **`psutil`** | `>=5.9.0` | Lee en tiempo real el consumo y capacidad de CPU, núcleos y memoria RAM. |
 | **`streamlit`** | `>=1.28.0` | Genera el Panel de Control interactivo en el PC Maestro. |
 | **`requests`** | `>=2.28.0` | Permite al Maestro recolectar métricas y despachar tareas a los nodos. |
-| **`pandas`** | `>=2.0.0` | Estructura las métricas del clúster en tablas comparativas. |
+| **`pandas`** | `>=2.0.0` | Estructura las métricas del clúster en tablas comparativas y manipula datos CSV. |
+| **`numpy`** | `>=1.24.0` | Operaciones numéricas, cálculo de percentiles y particionado de datos para el clúster. |
 
 ### Instalación de dependencias:
 ```bash

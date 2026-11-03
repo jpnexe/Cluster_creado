@@ -23,7 +23,7 @@ import time
 import requests
 import discovery
 
-REQUIRED_PACKAGES = ["fastapi", "uvicorn", "psutil", "streamlit", "requests", "pandas"]
+REQUIRED_PACKAGES = ["fastapi", "uvicorn", "psutil", "streamlit", "requests", "pandas", "numpy"]
 PROCESSES = []
 DISCOVERY_SERVER = None
 REGISTERED_MASTER_IP = None
