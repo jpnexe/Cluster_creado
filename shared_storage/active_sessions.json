@@ -1,0 +1,26 @@
+{
+  "DESKTOP-COFQL6K_200.100.106.113": {
+    "hostname": "DESKTOP-COFQL6K",
+    "ip": "200.100.106.113",
+    "action": "Visualizando el Espacio Compartido",
+    "client_type": "PC / Nodo",
+    "last_seen": 1793750600.937288,
+    "last_seen_str": "2026-11-03 19:03:20"
+  },
+  "PC-TEST-1_192.168.1.101": {
+    "hostname": "PC-TEST-1",
+    "ip": "192.168.1.101",
+    "action": "Subió archivo compartido 'saludo.txt' (0.0 KB)",
+    "client_type": "PC / Nodo",
+    "last_seen": 1793749710.8452718,
+    "last_seen_str": "2026-11-03 18:48:30"
+  },
+  "PC-TEST-2_192.168.1.102": {
+    "hostname": "PC-TEST-2",
+    "ip": "192.168.1.102",
+    "action": "Actualizó variable compartida 'model_version'",
+    "client_type": "PC / Nodo",
+    "last_seen": 1793749710.8221316,
+    "last_seen_str": "2026-11-03 18:48:30"
+  }
+}

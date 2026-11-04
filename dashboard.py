@@ -8,6 +8,7 @@ import numpy as np
 import requests
 import streamlit as st
 import discovery
+import shared_hub
 
 st.set_page_config(
     page_title="Cluster Control Panel & Data Analytics",
@@ -143,9 +144,10 @@ if st.sidebar.button("🗑️ Eliminar Nodos Desconectados"):
     st.rerun()
 
 # --- PESTAÑAS PRINCIPALES ---
-tab_monitor, tab_csv, tab_guide = st.tabs([
+tab_monitor, tab_csv, tab_shared, tab_guide = st.tabs([
     "📊 Panel de Control y Monitoreo", 
     "📁 Análisis de Datos y Carga CSV",
+    "🌐 Entorno Común y Espacio Compartido",
     "🚀 Guía de Conexión de Nuevos PCs"
 ])
 
@@ -274,7 +276,7 @@ with tab_csv:
     with c_upload2:
         st.write("**¿Deseas probar con datos de ejemplo?**")
         st.caption("Carga lotes generados para pruebas de estrés:")
-        col_g1, col_g2, col_g3 = st.columns(3)
+        col_g1, col_g2, col_g3, col_g4 = st.columns(4)
         with col_g1:
             if st.button("📦 Lote de 3 CSVs", use_container_width=True):
                 np.random.seed(42)
@@ -299,7 +301,7 @@ with tab_csv:
             test_dir = os.path.join(os.path.dirname(os.path.abspath(__file__)), "archivos_prueba_csv")
             if os.path.exists(test_dir):
                 csv_files_found = [f for f in os.listdir(test_dir) if f.endswith(".csv")]
-                if st.button(f"📂 Cargar {len(csv_files_found)} CSVs", use_container_width=True):
+                if st.button(f"📂 {len(csv_files_found)} CSVs", use_container_width=True):
                     with st.spinner(f"Cargando {len(csv_files_found)} archivos CSV en paralelo..."):
                         def _read_csv_file(fname):
                             return fname, pd.read_csv(os.path.join(test_dir, fname))
@@ -309,6 +311,17 @@ with tab_csv:
                     st.rerun()
 
         with col_g3:
+            ventas_prep_path = os.path.join(os.path.dirname(os.path.abspath(__file__)), "datos_ventas", "ventas_consolidado_preparado.csv")
+            if os.path.exists(ventas_prep_path):
+                if st.button("🛍️ Ventas Preparadas", use_container_width=True):
+                    with st.spinner("Cargando dataset de ventas preparadas..."):
+                        df_ventas = pd.read_csv(ventas_prep_path)
+                        st.session_state["loaded_csv_files"] = {"ventas_consolidado_preparado.csv": df_ventas}
+                        st.session_state["active_df"] = df_ventas
+                        st.session_state["dataset_name"] = "ventas_consolidado_preparado.csv"
+                    st.rerun()
+
+        with col_g4:
             if "loaded_csv_files" in st.session_state or "active_df" in st.session_state:
                 if st.button("🗑️ Limpiar Todo", use_container_width=True):
                     if "loaded_csv_files" in st.session_state:
@@ -959,7 +972,243 @@ with tab_csv:
         st.info("👆 Por favor sube un archivo CSV arriba o haz clic en **'🎲 Cargar CSV de Prueba'** para comenzar el análisis.")
 
 # =========================================================================
-# PESTAÑA 3: GUÍA VISUAL PASO A PASO PARA CONECTAR OTROS PCS
+# PESTAÑA 3: ENTORNO COMÚN Y ESPACIO COMPARTIDO DEL CLÚSTER
+# =========================================================================
+with tab_shared:
+    st.title("🌐 Entorno Común y Espacio Compartido del Clúster")
+    st.markdown("""
+    Este es el espacio centralizado del clúster donde **todos los computadores conectados pueden compartir información, 
+    archivos, notas y variables en memoria**, monitoreando en tiempo real **qué equipo está accediendo a los datos**.
+    """)
+
+    # Identificación del computador actual
+    primary_ip = discovery.get_primary_ip()
+    default_client_name = st.session_state.get("client_identity", socket.gethostname())
+
+    col_id1, col_id2, col_id3 = st.columns([2, 2, 1])
+    with col_id1:
+        client_identity = st.text_input(
+            "👤 Identificador de este Equipo:",
+            value=default_client_name,
+            key="input_client_identity",
+            help="Nombre con el que se registrarán tus acciones y accesos en el clúster."
+        )
+        st.session_state["client_identity"] = client_identity
+    with col_id2:
+        st.write("")
+        st.caption(f"🌐 Tu Dirección IP de red: `{primary_ip}`")
+        st.caption(f"📍 Servidor Central: `http://{primary_ip}:8501`")
+    with col_id3:
+        st.write("")
+        if st.button("🔄 Actualizar Presencia", use_container_width=True):
+            shared_hub.record_access(client_identity, primary_ip, "Actualización manual de presencia")
+            st.rerun()
+
+    # Registrar automáticamente el acceso de este equipo al ver la pestaña
+    shared_hub.record_access(client_identity, primary_ip, "Visualizando el Espacio Compartido")
+
+    st.markdown("---")
+
+    # 1. TELEMETRÍA DE PRESENCIA EN VIVO (¿Quién está accediendo a la información en el momento?)
+    st.subheader("1. 👥 Equipos Accediendo a la Información en este Momento")
+
+    active_sessions = shared_hub.get_active_sessions(timeout_seconds=35)
+    all_notes = shared_hub.get_notes()
+    all_files = shared_hub.get_shared_files()
+    all_vars = shared_hub.get_variables()
+
+    k_act1, k_act2, k_act3, k_act4 = st.columns(4)
+    k_act1.metric("🟢 Computadores Activos Ahora", f"{len(active_sessions)}")
+    k_act2.metric("📝 Notas en la Pizarra", f"{len(all_notes)}")
+    k_act3.metric("🗄️ Archivos Compartidos", f"{len(all_files)}")
+    k_act4.metric("🧠 Variables en Memoria", f"{len(all_vars)}")
+
+    if active_sessions:
+        cols_act = st.columns(min(max(len(active_sessions), 1), 4))
+        for idx_s, sess in enumerate(active_sessions):
+            with cols_act[idx_s % len(cols_act)]:
+                is_me = (sess['hostname'] == client_identity)
+                tag_me = " (Este equipo)" if is_me else ""
+                with st.container(border=True):
+                    st.markdown(f"🟢 **{sess['hostname']}**{tag_me}")
+                    st.caption(f"IP: `{sess['ip']}` | Activo hace: **{sess['seconds_ago']}s**")
+                    st.info(f"**Acción:** {sess['action']}")
+    else:
+        st.warning("No se detectan accesos activos en los últimos 35 segundos.")
+
+    st.markdown("---")
+
+    # 2. SUB-PESTAÑAS DE INTERACCIÓN DEL ESPACIO COMPARTIDO
+    sub_notes, sub_files, sub_vars, sub_audit = st.tabs([
+        "📝 Pizarra y Mensajes Compartidos",
+        "🗄️ Repositorio de Archivos Compartidos",
+        "🧠 Memoria y Variables Compartidas",
+        "🕵️ Auditoría de Accesos en Vivo"
+    ])
+
+    # A) PIZARRA Y MENSAJES COMPARTIDOS
+    with sub_notes:
+        st.markdown("#### 📝 Pizarra Comunitaria de Notas y Tareas")
+        st.caption("Publica anuncios, instrucciones o notas técnicas visibles por todos los computadores del clúster.")
+
+        with st.expander("➕ Escribir un nuevo mensaje en la Pizarra", expanded=False):
+            col_n1, col_n2 = st.columns([3, 1])
+            with col_n1:
+                note_msg = st.text_area("Contenido del mensaje:", placeholder="Ejemplo: Se completó la limpieza de datos en el Nodo 2...", key="note_msg_input")
+            with col_n2:
+                note_tag = st.selectbox("Categoría / Etiqueta:", ["Info", "Tarea", "Alerta", "Actualización"], key="note_tag_sel")
+                if st.button("📢 Publicar Nota", use_container_width=True):
+                    if note_msg.strip():
+                        shared_hub.add_note(client_identity, primary_ip, note_msg.strip(), note_tag)
+                        st.success("¡Nota publicada exitosamente!")
+                        st.rerun()
+                    else:
+                        st.warning("Por favor escribe un mensaje antes de publicar.")
+
+        if all_notes:
+            tag_colors = {
+                "Info": "🟦",
+                "Tarea": "🟩",
+                "Alerta": "🟥",
+                "Actualización": "🟪"
+            }
+            for n in all_notes:
+                with st.container(border=True):
+                    c_h1, c_h2 = st.columns([4, 1])
+                    with c_h1:
+                        icon = tag_colors.get(n.get("tag", "Info"), "🟦")
+                        st.markdown(f"{icon} **{n.get('author', 'Anónimo')}** (`{n.get('ip', '-')}`) — *{n.get('timestamp', '')}* | **[{n.get('tag', 'Info')}]**")
+                        st.write(n.get("message", ""))
+                    with c_h2:
+                        st.write("")
+                        if st.button("🗑️ Eliminar", key=f"del_note_{n.get('id')}"):
+                            shared_hub.delete_note(n.get("id"))
+                            st.rerun()
+        else:
+            st.info("La pizarra comunitaria está vacía. Sé el primero en publicar un mensaje arriba.")
+
+    # B) REPOSITORIO DE ARCHIVOS COMPARTIDOS
+    with sub_files:
+        st.markdown("#### 🗄️ Repositorio y Data Lake Compartido")
+        st.caption("Cualquier computador puede subir archivos o datasets aquí para que los demás equipos puedan descargarlos o analizarlos.")
+
+        with st.expander("📤 Subir un archivo al Repositorio Compartido", expanded=False):
+            shared_upload = st.file_uploader("Selecciona un archivo para compartir:", key="uploader_shared_file")
+            if shared_upload is not None:
+                if st.button("💾 Guardar en el Repositorio Compartido", use_container_width=True):
+                    shared_hub.save_shared_file(
+                        shared_upload.name,
+                        shared_upload.getvalue(),
+                        client_identity,
+                        primary_ip
+                    )
+                    st.success(f"¡Archivo '{shared_upload.name}' compartido con éxito en el clúster!")
+                    st.rerun()
+
+        if all_files:
+            file_rows = []
+            for f in all_files:
+                file_rows.append({
+                    "Archivo": f["filename"],
+                    "Tamaño": f"{f['size_kb']} KB",
+                    "Subido por": f["uploaded_by"],
+                    "IP Origen": f["ip"],
+                    "Fecha y Hora": f["timestamp"]
+                })
+            st.dataframe(pd.DataFrame(file_rows), use_container_width=True)
+
+            st.markdown("##### Acciones sobre Archivos Compartidos:")
+            c_f_sel, c_f_down, c_f_load = st.columns([2, 1, 1])
+            with c_f_sel:
+                selected_shared_name = st.selectbox("Selecciona un archivo:", [f["filename"] for f in all_files], key="sel_shared_f")
+            
+            selected_f_obj = next((f for f in all_files if f["filename"] == selected_shared_name), None)
+            if selected_f_obj and os.path.exists(selected_f_obj["path"]):
+                with open(selected_f_obj["path"], "rb") as f_read:
+                    f_bytes = f_read.read()
+                
+                with c_f_down:
+                    st.write("")
+                    st.download_button(
+                        label="⬇️ Descargar",
+                        data=f_bytes,
+                        file_name=selected_shared_name,
+                        use_container_width=True
+                    )
+                    shared_hub.record_access(client_identity, primary_ip, f"Descargó archivo compartido '{selected_shared_name}'")
+
+                with c_f_load:
+                    if selected_shared_name.endswith(".csv"):
+                        st.write("")
+                        if st.button("📊 Analizar en CSV", use_container_width=True):
+                            content = f_bytes
+                            sample = content[:4096].decode("utf-8", errors="ignore")
+                            sep = ";" if sample.count(";") > sample.count(",") else ","
+                            df_shared = pd.read_csv(io.BytesIO(content), sep=sep)
+                            st.session_state["loaded_csv_files"] = {selected_shared_name: df_shared}
+                            st.session_state["active_df"] = df_shared
+                            st.session_state["dataset_name"] = selected_shared_name
+                            shared_hub.record_access(client_identity, primary_ip, f"Cargó '{selected_shared_name}' en Analizador CSV")
+                            st.success(f"Cargado '{selected_shared_name}' en la pestaña de Análisis CSV.")
+        else:
+            st.info("No hay archivos en el repositorio compartido aún.")
+
+    # C) MEMORIA Y VARIABLES COMPARTIDAS (KEY-VALUE STORE)
+    with sub_vars:
+        st.markdown("#### 🧠 Memoria y Variables Compartidas del Clúster")
+        st.caption("Almacén clave-valor distribuido donde los computadores pueden guardar y leer parámetros compartidos, flags o resultados.")
+
+        with st.expander("➕ Guardar / Actualizar una Variable Compartida", expanded=False):
+            c_v1, c_v2 = st.columns(2)
+            with c_v1:
+                var_key = st.text_input("Clave / Nombre de la Variable:", placeholder="Ej: estado_modelo, epoch_actual, umbral_alerta", key="input_var_key")
+            with c_v2:
+                var_val = st.text_input("Valor:", placeholder="Ej: 0.95, entrenamiento_completo, activo", key="input_var_val")
+            
+            if st.button("💾 Guardar en Memoria Compartida", use_container_width=True):
+                if var_key.strip():
+                    shared_hub.set_variable(var_key.strip(), var_val.strip(), client_identity, primary_ip)
+                    st.success(f"Variable '{var_key}' guardada exitosamente.")
+                    st.rerun()
+                else:
+                    st.warning("Debes ingresar un nombre de clave.")
+
+        if all_vars:
+            var_rows = []
+            for k, v in all_vars.items():
+                var_rows.append({
+                    "Clave (Key)": k,
+                    "Valor (Value)": str(v.get("value", "")),
+                    "Actualizado por": v.get("updated_by", "-"),
+                    "IP": v.get("ip", "-"),
+                    "Última Modificación": v.get("timestamp", "-")
+                })
+            st.dataframe(pd.DataFrame(var_rows), use_container_width=True)
+
+            c_del1, c_del2 = st.columns([3, 1])
+            with c_del1:
+                del_k = st.selectbox("Selecciona una variable para eliminar:", list(all_vars.keys()), key="sel_del_var")
+            with c_del2:
+                st.write("")
+                if st.button("🗑️ Eliminar Variable", use_container_width=True):
+                    shared_hub.delete_variable(del_k)
+                    st.rerun()
+        else:
+            st.info("No hay variables guardadas en la memoria compartida.")
+
+    # D) AUDITORÍA DE ACCESOS EN VIVO
+    with sub_audit:
+        st.markdown("#### 🕵️ Registro de Auditoría de Accesos en Vivo")
+        st.caption("Historial en tiempo real de todos los computadores que han interactuado con la información del clúster.")
+
+        recent_logs = shared_hub.get_recent_access_logs(limit=30)
+        if recent_logs:
+            st.dataframe(pd.DataFrame(recent_logs), use_container_width=True)
+        else:
+            st.info("No hay registros de auditoría aún.")
+
+# =========================================================================
+# PESTAÑA 4: GUÍA VISUAL PASO A PASO PARA CONECTAR OTROS PCS
 # =========================================================================
 with tab_guide:
     st.title("Guía Visual: Cómo Conectar Nuevos Computadores al Clúster")

@@ -1,0 +1,53 @@
+id_producto,categoria,producto,precio_base
+P001,Electrónica,Audífonos inalámbricos,189000
+P002,Electrónica,Celular gama media,1150000
+P003,Electrónica,Cargador USB-C,59000
+P004,Electrónica,Parlante Bluetooth,249000
+P005,Electrónica,Televisor 50 pulgadas,2090000
+P006,Electrónica,Portátil 14 pulgadas,2850000
+P007,Electrónica,Mouse inalámbrico,69000
+P008,Electrónica,Reloj inteligente,459000
+P009,Hogar,Juego de sábanas,129000
+P010,Hogar,Olla a presión,219000
+P011,Hogar,Licuadora,279000
+P012,Hogar,Toallas x2,79000
+P013,Hogar,Lámpara LED,89000
+P014,Hogar,Juego de vasos x6,49000
+P015,Hogar,Freidora de aire,389000
+P016,Hogar,Almohada,65000
+P017,Ropa,Camiseta básica,45000
+P018,Ropa,Jean clásico,139000
+P019,Ropa,Chaqueta impermeable,259000
+P020,Ropa,Medias x3,29000
+P021,Ropa,Vestido casual,159000
+P022,Ropa,Tenis urbanos,289000
+P023,Ropa,Sudadera,119000
+P024,Ropa,Gorra,39000
+P025,Alimentos,Café 500 g,24000
+P026,Alimentos,Arroz 5 kg,21000
+P027,Alimentos,Aceite 1 L,14500
+P028,Alimentos,Chocolate de mesa,9800
+P029,Alimentos,Panela x4,12000
+P030,Alimentos,Atún x3,22500
+P031,Alimentos,Leche x6,27000
+P032,Alimentos,Galletas surtidas,8900
+P033,Deportes,Balón de fútbol,99000
+P034,Deportes,Mancuernas 5 kg,149000
+P035,Deportes,Bicicleta urbana,1290000
+P036,Deportes,Tapete de yoga,79000
+P037,Deportes,Guayos,239000
+P038,Deportes,Termo deportivo,45000
+P039,Juguetes,Rompecabezas 1000 piezas,69000
+P040,Juguetes,Carro a control remoto,189000
+P041,Juguetes,Muñeca,99000
+P042,Juguetes,Bloques de construcción,159000
+P043,Juguetes,Juego de mesa,119000
+P044,Libros,Novela,59000
+P045,Libros,Libro de cocina,89000
+P046,Libros,Cuaderno x5,32000
+P047,Libros,Libro infantil,39000
+P048,Belleza,Protector solar,54000
+P049,Belleza,Champú,26000
+P050,Belleza,Perfume,249000
+P051,Belleza,Crema hidratante,47000
+P052,Belleza,Kit de maquillaje,135000

@@ -57,8 +57,8 @@ pip install -r requirements.txt
 Todos los computadores deben poder comunicarse a través de TCP/IP en la red:
 
 ### 4.1. Puertos Utilizados
-* **Puerto `8000` (TCP):** Utilizado por el Agente (`agent.py`) en **todos los computadores** para responder métricas, registro dinámico y recibir tareas.
-* **Puerto `8501` (TCP):** Utilizado por el Panel de Control Streamlit (`dashboard.py`), únicamente en el **Computador Maestro**.
+* **Puerto `8000` (TCP):** Utilizado por el Agente (`agent.py`) en **todos los computadores** para responder métricas, registro dinámico, endpoints del Entorno Común y recibir tareas.
+* **Puerto `8501` (TCP):** Utilizado por el Panel de Control Web y el **Entorno Común Compartido** (`dashboard.py`), accesible desde el navegador de cualquier PC conectado a la red (`http://<IP_MAESTRO>:8501`).
 * **Puerto `8555` (UDP):** Utilizado para el **Auto-descubrimiento en red local**, permitiendo que los nuevos equipos detecten al Maestro automáticamente sin necesidad de escribir IPs a mano.
 
 ### 4.2. Topología de Red
@@ -133,4 +133,16 @@ sudo ufw allow 8000/tcp
 | **Tiempo de espera agotado (Timeout)** | El Firewall de Windows está bloqueando el puerto 8000. | Ejecuta el comando de firewall en PowerShell del paso 5. |
 | **Conexión rechazada (Connection Refused)** | La IP o el puerto son incorrectos. | Verifica la IP con `ipconfig` o revisa la salida de `Run.py --agent`. |
 | **No se encuentran los equipos en Wi-Fi** | El router tiene "Aislamiento de AP" activado. | Desactiva el aislamiento de clientes en el router o utiliza Tailscale. |
+
+---
+
+## 8. Entorno Común y Espacio Compartido del Clúster
+
+El sistema incluye un **Espacio Compartido (Shared Hub)** accesible desde el navegador de cualquier equipo de la red (`http://<IP_DEL_MAESTRO>:8501` en la pestaña **"🌐 Entorno Común y Espacio Compartido"**):
+
+* **Detección de Presencia en Tiempo Real:** Muestra qué equipos están conectados o accediendo a la información en los últimos 35 segundos, su IP y la acción exacta que están ejecutando.
+* **Pizarra y Mensajes Compartidos:** Permite a cualquier computador publicar avisos, tareas o notas técnicas visibles por todos.
+* **Repositorio de Archivos Compartidos (Data Lake Local):** Permite subir datasets o archivos comunes; los archivos CSV pueden enviarse con un solo clic directamente al módulo de análisis distribuido.
+* **Memoria y Variables Compartidas:** Almacén distribuido clave-valor para compartir estados de entrenamiento, flags o parámetros globales.
+* **Auditoría de Accesos en Vivo:** Historial cronológico con fecha, hora, equipo, IP y recurso consultado.
 

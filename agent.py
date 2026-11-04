@@ -10,6 +10,7 @@ import pandas as pd
 import numpy as np
 import uvicorn
 import discovery
+import shared_hub
 
 app = FastAPI(title="Agente de Nodo del Clúster")
 
@@ -24,6 +25,23 @@ class TaskRequest(BaseModel):
 class NodeRegistration(BaseModel):
     address: str
     hostname: str = ""
+
+class SharedAccessRequest(BaseModel):
+    hostname: str
+    ip: str = "127.0.0.1"
+    action: str = "Acceso general"
+
+class SharedNoteRequest(BaseModel):
+    author: str
+    message: str
+    tag: str = "Info"
+    ip: str = "127.0.0.1"
+
+class SharedVariableRequest(BaseModel):
+    key: str
+    value: Any
+    updated_by: str
+    ip: str = "127.0.0.1"
 
 @app.get("/metrics")
 def get_metrics():
@@ -49,6 +67,10 @@ def get_metrics():
 def execute_task(task: TaskRequest):
     """Ejecuta una tarea enviada por el nodo maestro y mide el tiempo de cómputo."""
     start_time = time.time()
+    try:
+        shared_hub.record_access(socket.gethostname(), "127.0.0.1", f"Procesando {task.task_id} ({task.task_type})")
+    except Exception:
+        pass
     
     # 1. ANÁLISIS DEL DATASET COMPLETO (TODAS LAS COLUMNAS)
     if task.task_type == "full_dataset_analysis":
@@ -188,6 +210,46 @@ def unregister_node(node: NodeRegistration):
 def get_nodes():
     """Retorna la lista actual de nodos registrados."""
     return {"nodes": discovery.load_nodes_list()}
+
+# --- ENDPOINTS DEL ENTORNO COMÚN Y ESPACIO COMPARTIDO ---
+
+@app.get("/shared/active_pcs")
+def get_shared_active_pcs():
+    """Retorna los computadores que están accediendo activamente."""
+    return {"active_pcs": shared_hub.get_active_sessions()}
+
+@app.post("/shared/record_access")
+def post_shared_access(req: SharedAccessRequest):
+    """Registra la presencia o actividad de un computador."""
+    shared_hub.record_access(req.hostname, req.ip, req.action)
+    return {"status": "SUCCESS"}
+
+@app.get("/shared/notes")
+def get_shared_notes():
+    """Retorna las notas de la pizarra compartida."""
+    return {"notes": shared_hub.get_notes()}
+
+@app.post("/shared/notes")
+def post_shared_note(req: SharedNoteRequest):
+    """Agrega una nota a la pizarra compartida."""
+    note = shared_hub.add_note(req.author, req.ip, req.message, req.tag)
+    return {"status": "SUCCESS", "note": note}
+
+@app.get("/shared/variables")
+def get_shared_variables():
+    """Retorna las variables compartidas del clúster."""
+    return {"variables": shared_hub.get_variables()}
+
+@app.post("/shared/variables")
+def post_shared_variable(req: SharedVariableRequest):
+    """Establece o actualiza una variable compartida."""
+    shared_hub.set_variable(req.key, req.value, req.updated_by, req.ip)
+    return {"status": "SUCCESS"}
+
+@app.get("/shared/files")
+def get_shared_files_list():
+    """Retorna la lista de archivos en el repositorio compartido."""
+    return {"files": shared_hub.get_shared_files()}
 
 if __name__ == "__main__":
     # Se ejecuta en 0.0.0.0 para que sea accesible desde otros PCs en la red

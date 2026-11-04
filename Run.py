@@ -166,15 +166,19 @@ def start_agent():
 
 
 def start_dashboard():
-    """Inicia el panel de control dashboard.py (Streamlit en puerto 8501)."""
+    """Inicia el panel de control dashboard.py (Streamlit en puerto 8501 para toda la red)."""
     script_path = os.path.join(os.path.dirname(os.path.abspath(__file__)), "dashboard.py")
     if not os.path.exists(script_path):
         print(f"[!] Error: No se encontró el archivo '{script_path}'")
         sys.exit(1)
 
-    print("[*] Iniciando Panel de Control (Streamlit en http://localhost:8501)...")
+    primary_ip = discovery.get_primary_ip()
+    print(f"[*] Iniciando Panel de Control (Streamlit):")
+    print(f"    - Acceso local:       http://localhost:8501")
+    print(f"    - Acceso desde otros PCs: http://{primary_ip}:8501")
+
     proc = subprocess.Popen(
-        [sys.executable, "-m", "streamlit", "run", script_path],
+        [sys.executable, "-m", "streamlit", "run", script_path, "--server.address=0.0.0.0", "--server.port=8501"],
         cwd=os.path.dirname(os.path.abspath(__file__))
     )
     PROCESSES.append((proc, "Panel de Control (dashboard.py)"))

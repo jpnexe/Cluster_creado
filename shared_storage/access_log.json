@@ -1,0 +1,1052 @@
+[
+  {
+    "timestamp": "2026-11-03 18:48:31",
+    "hostname": "DESKTOP-COFQL6K",
+    "ip": "200.100.106.113",
+    "action": "Visualizando el Espacio Compartido",
+    "client_type": "PC / Nodo"
+  },
+  {
+    "timestamp": "2026-11-03 18:48:31",
+    "hostname": "DESKTOP-COFQL6K",
+    "ip": "200.100.106.113",
+    "action": "Descargó archivo compartido 'saludo.txt'",
+    "client_type": "PC / Nodo"
+  },
+  {
+    "timestamp": "2026-11-03 18:48:34",
+    "hostname": "DESKTOP-COFQL6K",
+    "ip": "200.100.106.113",
+    "action": "Visualizando el Espacio Compartido",
+    "client_type": "PC / Nodo"
+  },
+  {
+    "timestamp": "2026-11-03 18:48:34",
+    "hostname": "DESKTOP-COFQL6K",
+    "ip": "200.100.106.113",
+    "action": "Descargó archivo compartido 'saludo.txt'",
+    "client_type": "PC / Nodo"
+  },
+  {
+    "timestamp": "2026-11-03 18:48:36",
+    "hostname": "DESKTOP-COFQL6K",
+    "ip": "200.100.106.113",
+    "action": "Visualizando el Espacio Compartido",
+    "client_type": "PC / Nodo"
+  },
+  {
+    "timestamp": "2026-11-03 18:48:36",
+    "hostname": "DESKTOP-COFQL6K",
+    "ip": "200.100.106.113",
+    "action": "Descargó archivo compartido 'saludo.txt'",
+    "client_type": "PC / Nodo"
+  },
+  {
+    "timestamp": "2026-11-03 18:48:39",
+    "hostname": "DESKTOP-COFQL6K",
+    "ip": "200.100.106.113",
+    "action": "Visualizando el Espacio Compartido",
+    "client_type": "PC / Nodo"
+  },
+  {
+    "timestamp": "2026-11-03 18:48:39",
+    "hostname": "DESKTOP-COFQL6K",
+    "ip": "200.100.106.113",
+    "action": "Descargó archivo compartido 'saludo.txt'",
+    "client_type": "PC / Nodo"
+  },
+  {
+    "timestamp": "2026-11-03 18:48:41",
+    "hostname": "DESKTOP-COFQL6K",
+    "ip": "200.100.106.113",
+    "action": "Visualizando el Espacio Compartido",
+    "client_type": "PC / Nodo"
+  },
+  {
+    "timestamp": "2026-11-03 18:48:43",
+    "hostname": "DESKTOP-COFQL6K",
+    "ip": "200.100.106.113",
+    "action": "Visualizando el Espacio Compartido",
+    "client_type": "PC / Nodo"
+  },
+  {
+    "timestamp": "2026-11-03 18:48:46",
+    "hostname": "DESKTOP-COFQL6K",
+    "ip": "200.100.106.113",
+    "action": "Visualizando el Espacio Compartido",
+    "client_type": "PC / Nodo"
+  },
+  {
+    "timestamp": "2026-11-03 18:48:49",
+    "hostname": "DESKTOP-COFQL6K",
+    "ip": "200.100.106.113",
+    "action": "Visualizando el Espacio Compartido",
+    "client_type": "PC / Nodo"
+  },
+  {
+    "timestamp": "2026-11-03 18:48:51",
+    "hostname": "DESKTOP-COFQL6K",
+    "ip": "200.100.106.113",
+    "action": "Visualizando el Espacio Compartido",
+    "client_type": "PC / Nodo"
+  },
+  {
+    "timestamp": "2026-11-03 18:48:54",
+    "hostname": "DESKTOP-COFQL6K",
+    "ip": "200.100.106.113",
+    "action": "Visualizando el Espacio Compartido",
+    "client_type": "PC / Nodo"
+  },
+  {
+    "timestamp": "2026-11-03 18:48:56",
+    "hostname": "DESKTOP-COFQL6K",
+    "ip": "200.100.106.113",
+    "action": "Visualizando el Espacio Compartido",
+    "client_type": "PC / Nodo"
+  },
+  {
+    "timestamp": "2026-11-03 18:48:59",
+    "hostname": "DESKTOP-COFQL6K",
+    "ip": "200.100.106.113",
+    "action": "Visualizando el Espacio Compartido",
+    "client_type": "PC / Nodo"
+  },
+  {
+    "timestamp": "2026-11-03 18:49:01",
+    "hostname": "DESKTOP-COFQL6K",
+    "ip": "200.100.106.113",
+    "action": "Visualizando el Espacio Compartido",
+    "client_type": "PC / Nodo"
+  },
+  {
+    "timestamp": "2026-11-03 18:49:04",
+    "hostname": "DESKTOP-COFQL6K",
+    "ip": "200.100.106.113",
+    "action": "Visualizando el Espacio Compartido",
+    "client_type": "PC / Nodo"
+  },
+  {
+    "timestamp": "2026-11-03 18:49:07",
+    "hostname": "DESKTOP-COFQL6K",
+    "ip": "200.100.106.113",
+    "action": "Visualizando el Espacio Compartido",
+    "client_type": "PC / Nodo"
+  },
+  {
+    "timestamp": "2026-11-03 18:49:09",
+    "hostname": "DESKTOP-COFQL6K",
+    "ip": "200.100.106.113",
+    "action": "Visualizando el Espacio Compartido",
+    "client_type": "PC / Nodo"
+  },
+  {
+    "timestamp": "2026-11-03 18:49:12",
+    "hostname": "DESKTOP-COFQL6K",
+    "ip": "200.100.106.113",
+    "action": "Visualizando el Espacio Compartido",
+    "client_type": "PC / Nodo"
+  },
+  {
+    "timestamp": "2026-11-03 18:49:14",
+    "hostname": "DESKTOP-COFQL6K",
+    "ip": "200.100.106.113",
+    "action": "Visualizando el Espacio Compartido",
+    "client_type": "PC / Nodo"
+  },
+  {
+    "timestamp": "2026-11-03 18:49:16",
+    "hostname": "DESKTOP-COFQL6K",
+    "ip": "200.100.106.113",
+    "action": "Visualizando el Espacio Compartido",
+    "client_type": "PC / Nodo"
+  },
+  {
+    "timestamp": "2026-11-03 18:49:19",
+    "hostname": "DESKTOP-COFQL6K",
+    "ip": "200.100.106.113",
+    "action": "Visualizando el Espacio Compartido",
+    "client_type": "PC / Nodo"
+  },
+  {
+    "timestamp": "2026-11-03 18:49:21",
+    "hostname": "DESKTOP-COFQL6K",
+    "ip": "200.100.106.113",
+    "action": "Visualizando el Espacio Compartido",
+    "client_type": "PC / Nodo"
+  },
+  {
+    "timestamp": "2026-11-03 18:49:24",
+    "hostname": "DESKTOP-COFQL6K",
+    "ip": "200.100.106.113",
+    "action": "Visualizando el Espacio Compartido",
+    "client_type": "PC / Nodo"
+  },
+  {
+    "timestamp": "2026-11-03 18:49:26",
+    "hostname": "DESKTOP-COFQL6K",
+    "ip": "200.100.106.113",
+    "action": "Visualizando el Espacio Compartido",
+    "client_type": "PC / Nodo"
+  },
+  {
+    "timestamp": "2026-11-03 18:49:29",
+    "hostname": "DESKTOP-COFQL6K",
+    "ip": "200.100.106.113",
+    "action": "Visualizando el Espacio Compartido",
+    "client_type": "PC / Nodo"
+  },
+  {
+    "timestamp": "2026-11-03 18:49:31",
+    "hostname": "DESKTOP-COFQL6K",
+    "ip": "200.100.106.113",
+    "action": "Visualizando el Espacio Compartido",
+    "client_type": "PC / Nodo"
+  },
+  {
+    "timestamp": "2026-11-03 18:49:34",
+    "hostname": "DESKTOP-COFQL6K",
+    "ip": "200.100.106.113",
+    "action": "Visualizando el Espacio Compartido",
+    "client_type": "PC / Nodo"
+  },
+  {
+    "timestamp": "2026-11-03 18:49:36",
+    "hostname": "DESKTOP-COFQL6K",
+    "ip": "200.100.106.113",
+    "action": "Visualizando el Espacio Compartido",
+    "client_type": "PC / Nodo"
+  },
+  {
+    "timestamp": "2026-11-03 18:49:39",
+    "hostname": "DESKTOP-COFQL6K",
+    "ip": "200.100.106.113",
+    "action": "Visualizando el Espacio Compartido",
+    "client_type": "PC / Nodo"
+  },
+  {
+    "timestamp": "2026-11-03 18:49:41",
+    "hostname": "DESKTOP-COFQL6K",
+    "ip": "200.100.106.113",
+    "action": "Visualizando el Espacio Compartido",
+    "client_type": "PC / Nodo"
+  },
+  {
+    "timestamp": "2026-11-03 18:49:43",
+    "hostname": "DESKTOP-COFQL6K",
+    "ip": "200.100.106.113",
+    "action": "Visualizando el Espacio Compartido",
+    "client_type": "PC / Nodo"
+  },
+  {
+    "timestamp": "2026-11-03 18:49:46",
+    "hostname": "DESKTOP-COFQL6K",
+    "ip": "200.100.106.113",
+    "action": "Visualizando el Espacio Compartido",
+    "client_type": "PC / Nodo"
+  },
+  {
+    "timestamp": "2026-11-03 18:49:48",
+    "hostname": "DESKTOP-COFQL6K",
+    "ip": "200.100.106.113",
+    "action": "Visualizando el Espacio Compartido",
+    "client_type": "PC / Nodo"
+  },
+  {
+    "timestamp": "2026-11-03 18:49:51",
+    "hostname": "DESKTOP-COFQL6K",
+    "ip": "200.100.106.113",
+    "action": "Visualizando el Espacio Compartido",
+    "client_type": "PC / Nodo"
+  },
+  {
+    "timestamp": "2026-11-03 18:49:53",
+    "hostname": "DESKTOP-COFQL6K",
+    "ip": "200.100.106.113",
+    "action": "Visualizando el Espacio Compartido",
+    "client_type": "PC / Nodo"
+  },
+  {
+    "timestamp": "2026-11-03 18:49:56",
+    "hostname": "DESKTOP-COFQL6K",
+    "ip": "200.100.106.113",
+    "action": "Visualizando el Espacio Compartido",
+    "client_type": "PC / Nodo"
+  },
+  {
+    "timestamp": "2026-11-03 18:49:59",
+    "hostname": "DESKTOP-COFQL6K",
+    "ip": "200.100.106.113",
+    "action": "Visualizando el Espacio Compartido",
+    "client_type": "PC / Nodo"
+  },
+  {
+    "timestamp": "2026-11-03 18:50:01",
+    "hostname": "DESKTOP-COFQL6K",
+    "ip": "200.100.106.113",
+    "action": "Visualizando el Espacio Compartido",
+    "client_type": "PC / Nodo"
+  },
+  {
+    "timestamp": "2026-11-03 18:50:01",
+    "hostname": "DESKTOP-COFQL6K",
+    "ip": "200.100.106.113",
+    "action": "Visualizando el Espacio Compartido",
+    "client_type": "PC / Nodo"
+  },
+  {
+    "timestamp": "2026-11-03 18:50:04",
+    "hostname": "DESKTOP-COFQL6K",
+    "ip": "200.100.106.113",
+    "action": "Visualizando el Espacio Compartido",
+    "client_type": "PC / Nodo"
+  },
+  {
+    "timestamp": "2026-11-03 18:50:06",
+    "hostname": "DESKTOP-COFQL6K",
+    "ip": "200.100.106.113",
+    "action": "Visualizando el Espacio Compartido",
+    "client_type": "PC / Nodo"
+  },
+  {
+    "timestamp": "2026-11-03 18:50:09",
+    "hostname": "DESKTOP-COFQL6K",
+    "ip": "200.100.106.113",
+    "action": "Visualizando el Espacio Compartido",
+    "client_type": "PC / Nodo"
+  },
+  {
+    "timestamp": "2026-11-03 18:50:12",
+    "hostname": "DESKTOP-COFQL6K",
+    "ip": "200.100.106.113",
+    "action": "Visualizando el Espacio Compartido",
+    "client_type": "PC / Nodo"
+  },
+  {
+    "timestamp": "2026-11-03 18:50:14",
+    "hostname": "DESKTOP-COFQL6K",
+    "ip": "200.100.106.113",
+    "action": "Visualizando el Espacio Compartido",
+    "client_type": "PC / Nodo"
+  },
+  {
+    "timestamp": "2026-11-03 18:50:17",
+    "hostname": "DESKTOP-COFQL6K",
+    "ip": "200.100.106.113",
+    "action": "Visualizando el Espacio Compartido",
+    "client_type": "PC / Nodo"
+  },
+  {
+    "timestamp": "2026-11-03 18:50:19",
+    "hostname": "DESKTOP-COFQL6K",
+    "ip": "200.100.106.113",
+    "action": "Visualizando el Espacio Compartido",
+    "client_type": "PC / Nodo"
+  },
+  {
+    "timestamp": "2026-11-03 18:50:22",
+    "hostname": "DESKTOP-COFQL6K",
+    "ip": "200.100.106.113",
+    "action": "Visualizando el Espacio Compartido",
+    "client_type": "PC / Nodo"
+  },
+  {
+    "timestamp": "2026-11-03 18:50:24",
+    "hostname": "DESKTOP-COFQL6K",
+    "ip": "200.100.106.113",
+    "action": "Visualizando el Espacio Compartido",
+    "client_type": "PC / Nodo"
+  },
+  {
+    "timestamp": "2026-11-03 18:50:27",
+    "hostname": "DESKTOP-COFQL6K",
+    "ip": "200.100.106.113",
+    "action": "Visualizando el Espacio Compartido",
+    "client_type": "PC / Nodo"
+  },
+  {
+    "timestamp": "2026-11-03 18:50:31",
+    "hostname": "DESKTOP-COFQL6K",
+    "ip": "200.100.106.113",
+    "action": "Visualizando el Espacio Compartido",
+    "client_type": "PC / Nodo"
+  },
+  {
+    "timestamp": "2026-11-03 18:50:34",
+    "hostname": "DESKTOP-COFQL6K",
+    "ip": "200.100.106.113",
+    "action": "Visualizando el Espacio Compartido",
+    "client_type": "PC / Nodo"
+  },
+  {
+    "timestamp": "2026-11-03 18:50:36",
+    "hostname": "DESKTOP-COFQL6K",
+    "ip": "200.100.106.113",
+    "action": "Visualizando el Espacio Compartido",
+    "client_type": "PC / Nodo"
+  },
+  {
+    "timestamp": "2026-11-03 18:50:39",
+    "hostname": "DESKTOP-COFQL6K",
+    "ip": "200.100.106.113",
+    "action": "Visualizando el Espacio Compartido",
+    "client_type": "PC / Nodo"
+  },
+  {
+    "timestamp": "2026-11-03 18:50:42",
+    "hostname": "DESKTOP-COFQL6K",
+    "ip": "200.100.106.113",
+    "action": "Visualizando el Espacio Compartido",
+    "client_type": "PC / Nodo"
+  },
+  {
+    "timestamp": "2026-11-03 18:50:44",
+    "hostname": "DESKTOP-COFQL6K",
+    "ip": "200.100.106.113",
+    "action": "Visualizando el Espacio Compartido",
+    "client_type": "PC / Nodo"
+  },
+  {
+    "timestamp": "2026-11-03 18:50:47",
+    "hostname": "DESKTOP-COFQL6K",
+    "ip": "200.100.106.113",
+    "action": "Visualizando el Espacio Compartido",
+    "client_type": "PC / Nodo"
+  },
+  {
+    "timestamp": "2026-11-03 18:50:49",
+    "hostname": "DESKTOP-COFQL6K",
+    "ip": "200.100.106.113",
+    "action": "Visualizando el Espacio Compartido",
+    "client_type": "PC / Nodo"
+  },
+  {
+    "timestamp": "2026-11-03 18:50:52",
+    "hostname": "DESKTOP-COFQL6K",
+    "ip": "200.100.106.113",
+    "action": "Visualizando el Espacio Compartido",
+    "client_type": "PC / Nodo"
+  },
+  {
+    "timestamp": "2026-11-03 18:50:54",
+    "hostname": "DESKTOP-COFQL6K",
+    "ip": "200.100.106.113",
+    "action": "Visualizando el Espacio Compartido",
+    "client_type": "PC / Nodo"
+  },
+  {
+    "timestamp": "2026-11-03 18:50:57",
+    "hostname": "DESKTOP-COFQL6K",
+    "ip": "200.100.106.113",
+    "action": "Visualizando el Espacio Compartido",
+    "client_type": "PC / Nodo"
+  },
+  {
+    "timestamp": "2026-11-03 18:50:59",
+    "hostname": "DESKTOP-COFQL6K",
+    "ip": "200.100.106.113",
+    "action": "Visualizando el Espacio Compartido",
+    "client_type": "PC / Nodo"
+  },
+  {
+    "timestamp": "2026-11-03 18:51:02",
+    "hostname": "DESKTOP-COFQL6K",
+    "ip": "200.100.106.113",
+    "action": "Visualizando el Espacio Compartido",
+    "client_type": "PC / Nodo"
+  },
+  {
+    "timestamp": "2026-11-03 18:51:05",
+    "hostname": "DESKTOP-COFQL6K",
+    "ip": "200.100.106.113",
+    "action": "Visualizando el Espacio Compartido",
+    "client_type": "PC / Nodo"
+  },
+  {
+    "timestamp": "2026-11-03 18:51:07",
+    "hostname": "DESKTOP-COFQL6K",
+    "ip": "200.100.106.113",
+    "action": "Visualizando el Espacio Compartido",
+    "client_type": "PC / Nodo"
+  },
+  {
+    "timestamp": "2026-11-03 18:51:10",
+    "hostname": "DESKTOP-COFQL6K",
+    "ip": "200.100.106.113",
+    "action": "Visualizando el Espacio Compartido",
+    "client_type": "PC / Nodo"
+  },
+  {
+    "timestamp": "2026-11-03 18:51:12",
+    "hostname": "DESKTOP-COFQL6K",
+    "ip": "200.100.106.113",
+    "action": "Visualizando el Espacio Compartido",
+    "client_type": "PC / Nodo"
+  },
+  {
+    "timestamp": "2026-11-03 18:51:15",
+    "hostname": "DESKTOP-COFQL6K",
+    "ip": "200.100.106.113",
+    "action": "Visualizando el Espacio Compartido",
+    "client_type": "PC / Nodo"
+  },
+  {
+    "timestamp": "2026-11-03 18:51:17",
+    "hostname": "DESKTOP-COFQL6K",
+    "ip": "200.100.106.113",
+    "action": "Visualizando el Espacio Compartido",
+    "client_type": "PC / Nodo"
+  },
+  {
+    "timestamp": "2026-11-03 18:51:20",
+    "hostname": "DESKTOP-COFQL6K",
+    "ip": "200.100.106.113",
+    "action": "Visualizando el Espacio Compartido",
+    "client_type": "PC / Nodo"
+  },
+  {
+    "timestamp": "2026-11-03 18:51:22",
+    "hostname": "DESKTOP-COFQL6K",
+    "ip": "200.100.106.113",
+    "action": "Visualizando el Espacio Compartido",
+    "client_type": "PC / Nodo"
+  },
+  {
+    "timestamp": "2026-11-03 18:51:25",
+    "hostname": "DESKTOP-COFQL6K",
+    "ip": "200.100.106.113",
+    "action": "Visualizando el Espacio Compartido",
+    "client_type": "PC / Nodo"
+  },
+  {
+    "timestamp": "2026-11-03 18:51:28",
+    "hostname": "DESKTOP-COFQL6K",
+    "ip": "200.100.106.113",
+    "action": "Visualizando el Espacio Compartido",
+    "client_type": "PC / Nodo"
+  },
+  {
+    "timestamp": "2026-11-03 18:51:30",
+    "hostname": "DESKTOP-COFQL6K",
+    "ip": "200.100.106.113",
+    "action": "Visualizando el Espacio Compartido",
+    "client_type": "PC / Nodo"
+  },
+  {
+    "timestamp": "2026-11-03 18:51:33",
+    "hostname": "DESKTOP-COFQL6K",
+    "ip": "200.100.106.113",
+    "action": "Visualizando el Espacio Compartido",
+    "client_type": "PC / Nodo"
+  },
+  {
+    "timestamp": "2026-11-03 18:51:35",
+    "hostname": "DESKTOP-COFQL6K",
+    "ip": "200.100.106.113",
+    "action": "Visualizando el Espacio Compartido",
+    "client_type": "PC / Nodo"
+  },
+  {
+    "timestamp": "2026-11-03 18:51:38",
+    "hostname": "DESKTOP-COFQL6K",
+    "ip": "200.100.106.113",
+    "action": "Visualizando el Espacio Compartido",
+    "client_type": "PC / Nodo"
+  },
+  {
+    "timestamp": "2026-11-03 18:51:40",
+    "hostname": "DESKTOP-COFQL6K",
+    "ip": "200.100.106.113",
+    "action": "Visualizando el Espacio Compartido",
+    "client_type": "PC / Nodo"
+  },
+  {
+    "timestamp": "2026-11-03 18:51:43",
+    "hostname": "DESKTOP-COFQL6K",
+    "ip": "200.100.106.113",
+    "action": "Visualizando el Espacio Compartido",
+    "client_type": "PC / Nodo"
+  },
+  {
+    "timestamp": "2026-11-03 18:51:45",
+    "hostname": "DESKTOP-COFQL6K",
+    "ip": "200.100.106.113",
+    "action": "Visualizando el Espacio Compartido",
+    "client_type": "PC / Nodo"
+  },
+  {
+    "timestamp": "2026-11-03 18:51:48",
+    "hostname": "DESKTOP-COFQL6K",
+    "ip": "200.100.106.113",
+    "action": "Visualizando el Espacio Compartido",
+    "client_type": "PC / Nodo"
+  },
+  {
+    "timestamp": "2026-11-03 18:51:51",
+    "hostname": "DESKTOP-COFQL6K",
+    "ip": "200.100.106.113",
+    "action": "Visualizando el Espacio Compartido",
+    "client_type": "PC / Nodo"
+  },
+  {
+    "timestamp": "2026-11-03 18:51:53",
+    "hostname": "DESKTOP-COFQL6K",
+    "ip": "200.100.106.113",
+    "action": "Visualizando el Espacio Compartido",
+    "client_type": "PC / Nodo"
+  },
+  {
+    "timestamp": "2026-11-03 18:51:56",
+    "hostname": "DESKTOP-COFQL6K",
+    "ip": "200.100.106.113",
+    "action": "Visualizando el Espacio Compartido",
+    "client_type": "PC / Nodo"
+  },
+  {
+    "timestamp": "2026-11-03 18:51:58",
+    "hostname": "DESKTOP-COFQL6K",
+    "ip": "200.100.106.113",
+    "action": "Visualizando el Espacio Compartido",
+    "client_type": "PC / Nodo"
+  },
+  {
+    "timestamp": "2026-11-03 18:52:01",
+    "hostname": "DESKTOP-COFQL6K",
+    "ip": "200.100.106.113",
+    "action": "Visualizando el Espacio Compartido",
+    "client_type": "PC / Nodo"
+  },
+  {
+    "timestamp": "2026-11-03 18:52:03",
+    "hostname": "DESKTOP-COFQL6K",
+    "ip": "200.100.106.113",
+    "action": "Visualizando el Espacio Compartido",
+    "client_type": "PC / Nodo"
+  },
+  {
+    "timestamp": "2026-11-03 18:52:05",
+    "hostname": "DESKTOP-COFQL6K",
+    "ip": "200.100.106.113",
+    "action": "Visualizando el Espacio Compartido",
+    "client_type": "PC / Nodo"
+  },
+  {
+    "timestamp": "2026-11-03 18:52:08",
+    "hostname": "DESKTOP-COFQL6K",
+    "ip": "200.100.106.113",
+    "action": "Visualizando el Espacio Compartido",
+    "client_type": "PC / Nodo"
+  },
+  {
+    "timestamp": "2026-11-03 18:52:10",
+    "hostname": "DESKTOP-COFQL6K",
+    "ip": "200.100.106.113",
+    "action": "Visualizando el Espacio Compartido",
+    "client_type": "PC / Nodo"
+  },
+  {
+    "timestamp": "2026-11-03 18:52:13",
+    "hostname": "DESKTOP-COFQL6K",
+    "ip": "200.100.106.113",
+    "action": "Visualizando el Espacio Compartido",
+    "client_type": "PC / Nodo"
+  },
+  {
+    "timestamp": "2026-11-03 18:52:15",
+    "hostname": "DESKTOP-COFQL6K",
+    "ip": "200.100.106.113",
+    "action": "Visualizando el Espacio Compartido",
+    "client_type": "PC / Nodo"
+  },
+  {
+    "timestamp": "2026-11-03 18:52:18",
+    "hostname": "DESKTOP-COFQL6K",
+    "ip": "200.100.106.113",
+    "action": "Visualizando el Espacio Compartido",
+    "client_type": "PC / Nodo"
+  },
+  {
+    "timestamp": "2026-11-03 18:52:20",
+    "hostname": "DESKTOP-COFQL6K",
+    "ip": "200.100.106.113",
+    "action": "Visualizando el Espacio Compartido",
+    "client_type": "PC / Nodo"
+  },
+  {
+    "timestamp": "2026-11-03 18:52:23",
+    "hostname": "DESKTOP-COFQL6K",
+    "ip": "200.100.106.113",
+    "action": "Visualizando el Espacio Compartido",
+    "client_type": "PC / Nodo"
+  },
+  {
+    "timestamp": "2026-11-03 18:52:26",
+    "hostname": "DESKTOP-COFQL6K",
+    "ip": "200.100.106.113",
+    "action": "Visualizando el Espacio Compartido",
+    "client_type": "PC / Nodo"
+  },
+  {
+    "timestamp": "2026-11-03 18:52:28",
+    "hostname": "DESKTOP-COFQL6K",
+    "ip": "200.100.106.113",
+    "action": "Visualizando el Espacio Compartido",
+    "client_type": "PC / Nodo"
+  },
+  {
+    "timestamp": "2026-11-03 18:52:31",
+    "hostname": "DESKTOP-COFQL6K",
+    "ip": "200.100.106.113",
+    "action": "Visualizando el Espacio Compartido",
+    "client_type": "PC / Nodo"
+  },
+  {
+    "timestamp": "2026-11-03 18:52:33",
+    "hostname": "DESKTOP-COFQL6K",
+    "ip": "200.100.106.113",
+    "action": "Visualizando el Espacio Compartido",
+    "client_type": "PC / Nodo"
+  },
+  {
+    "timestamp": "2026-11-03 18:52:36",
+    "hostname": "DESKTOP-COFQL6K",
+    "ip": "200.100.106.113",
+    "action": "Visualizando el Espacio Compartido",
+    "client_type": "PC / Nodo"
+  },
+  {
+    "timestamp": "2026-11-03 18:52:38",
+    "hostname": "DESKTOP-COFQL6K",
+    "ip": "200.100.106.113",
+    "action": "Visualizando el Espacio Compartido",
+    "client_type": "PC / Nodo"
+  },
+  {
+    "timestamp": "2026-11-03 18:52:41",
+    "hostname": "DESKTOP-COFQL6K",
+    "ip": "200.100.106.113",
+    "action": "Visualizando el Espacio Compartido",
+    "client_type": "PC / Nodo"
+  },
+  {
+    "timestamp": "2026-11-03 18:52:43",
+    "hostname": "DESKTOP-COFQL6K",
+    "ip": "200.100.106.113",
+    "action": "Visualizando el Espacio Compartido",
+    "client_type": "PC / Nodo"
+  },
+  {
+    "timestamp": "2026-11-03 18:52:46",
+    "hostname": "DESKTOP-COFQL6K",
+    "ip": "200.100.106.113",
+    "action": "Visualizando el Espacio Compartido",
+    "client_type": "PC / Nodo"
+  },
+  {
+    "timestamp": "2026-11-03 18:52:49",
+    "hostname": "DESKTOP-COFQL6K",
+    "ip": "200.100.106.113",
+    "action": "Visualizando el Espacio Compartido",
+    "client_type": "PC / Nodo"
+  },
+  {
+    "timestamp": "2026-11-03 18:52:51",
+    "hostname": "DESKTOP-COFQL6K",
+    "ip": "200.100.106.113",
+    "action": "Visualizando el Espacio Compartido",
+    "client_type": "PC / Nodo"
+  },
+  {
+    "timestamp": "2026-11-03 18:52:54",
+    "hostname": "DESKTOP-COFQL6K",
+    "ip": "200.100.106.113",
+    "action": "Visualizando el Espacio Compartido",
+    "client_type": "PC / Nodo"
+  },
+  {
+    "timestamp": "2026-11-03 18:52:56",
+    "hostname": "DESKTOP-COFQL6K",
+    "ip": "200.100.106.113",
+    "action": "Visualizando el Espacio Compartido",
+    "client_type": "PC / Nodo"
+  },
+  {
+    "timestamp": "2026-11-03 18:52:59",
+    "hostname": "DESKTOP-COFQL6K",
+    "ip": "200.100.106.113",
+    "action": "Visualizando el Espacio Compartido",
+    "client_type": "PC / Nodo"
+  },
+  {
+    "timestamp": "2026-11-03 18:53:01",
+    "hostname": "DESKTOP-COFQL6K",
+    "ip": "200.100.106.113",
+    "action": "Visualizando el Espacio Compartido",
+    "client_type": "PC / Nodo"
+  },
+  {
+    "timestamp": "2026-11-03 18:53:04",
+    "hostname": "DESKTOP-COFQL6K",
+    "ip": "200.100.106.113",
+    "action": "Visualizando el Espacio Compartido",
+    "client_type": "PC / Nodo"
+  },
+  {
+    "timestamp": "2026-11-03 18:53:06",
+    "hostname": "DESKTOP-COFQL6K",
+    "ip": "200.100.106.113",
+    "action": "Visualizando el Espacio Compartido",
+    "client_type": "PC / Nodo"
+  },
+  {
+    "timestamp": "2026-11-03 18:53:09",
+    "hostname": "DESKTOP-COFQL6K",
+    "ip": "200.100.106.113",
+    "action": "Visualizando el Espacio Compartido",
+    "client_type": "PC / Nodo"
+  },
+  {
+    "timestamp": "2026-11-03 18:53:11",
+    "hostname": "DESKTOP-COFQL6K",
+    "ip": "200.100.106.113",
+    "action": "Visualizando el Espacio Compartido",
+    "client_type": "PC / Nodo"
+  },
+  {
+    "timestamp": "2026-11-03 18:53:14",
+    "hostname": "DESKTOP-COFQL6K",
+    "ip": "200.100.106.113",
+    "action": "Visualizando el Espacio Compartido",
+    "client_type": "PC / Nodo"
+  },
+  {
+    "timestamp": "2026-11-03 18:53:17",
+    "hostname": "DESKTOP-COFQL6K",
+    "ip": "200.100.106.113",
+    "action": "Visualizando el Espacio Compartido",
+    "client_type": "PC / Nodo"
+  },
+  {
+    "timestamp": "2026-11-03 18:53:19",
+    "hostname": "DESKTOP-COFQL6K",
+    "ip": "200.100.106.113",
+    "action": "Visualizando el Espacio Compartido",
+    "client_type": "PC / Nodo"
+  },
+  {
+    "timestamp": "2026-11-03 18:53:22",
+    "hostname": "DESKTOP-COFQL6K",
+    "ip": "200.100.106.113",
+    "action": "Visualizando el Espacio Compartido",
+    "client_type": "PC / Nodo"
+  },
+  {
+    "timestamp": "2026-11-03 18:53:25",
+    "hostname": "DESKTOP-COFQL6K",
+    "ip": "200.100.106.113",
+    "action": "Visualizando el Espacio Compartido",
+    "client_type": "PC / Nodo"
+  },
+  {
+    "timestamp": "2026-11-03 18:53:27",
+    "hostname": "DESKTOP-COFQL6K",
+    "ip": "200.100.106.113",
+    "action": "Visualizando el Espacio Compartido",
+    "client_type": "PC / Nodo"
+  },
+  {
+    "timestamp": "2026-11-03 18:53:30",
+    "hostname": "DESKTOP-COFQL6K",
+    "ip": "200.100.106.113",
+    "action": "Visualizando el Espacio Compartido",
+    "client_type": "PC / Nodo"
+  },
+  {
+    "timestamp": "2026-11-03 18:53:32",
+    "hostname": "DESKTOP-COFQL6K",
+    "ip": "200.100.106.113",
+    "action": "Visualizando el Espacio Compartido",
+    "client_type": "PC / Nodo"
+  },
+  {
+    "timestamp": "2026-11-03 18:53:35",
+    "hostname": "DESKTOP-COFQL6K",
+    "ip": "200.100.106.113",
+    "action": "Visualizando el Espacio Compartido",
+    "client_type": "PC / Nodo"
+  },
+  {
+    "timestamp": "2026-11-03 18:53:37",
+    "hostname": "DESKTOP-COFQL6K",
+    "ip": "200.100.106.113",
+    "action": "Visualizando el Espacio Compartido",
+    "client_type": "PC / Nodo"
+  },
+  {
+    "timestamp": "2026-11-03 18:53:40",
+    "hostname": "DESKTOP-COFQL6K",
+    "ip": "200.100.106.113",
+    "action": "Visualizando el Espacio Compartido",
+    "client_type": "PC / Nodo"
+  },
+  {
+    "timestamp": "2026-11-03 18:53:42",
+    "hostname": "DESKTOP-COFQL6K",
+    "ip": "200.100.106.113",
+    "action": "Visualizando el Espacio Compartido",
+    "client_type": "PC / Nodo"
+  },
+  {
+    "timestamp": "2026-11-03 18:53:45",
+    "hostname": "DESKTOP-COFQL6K",
+    "ip": "200.100.106.113",
+    "action": "Visualizando el Espacio Compartido",
+    "client_type": "PC / Nodo"
+  },
+  {
+    "timestamp": "2026-11-03 18:53:48",
+    "hostname": "DESKTOP-COFQL6K",
+    "ip": "200.100.106.113",
+    "action": "Visualizando el Espacio Compartido",
+    "client_type": "PC / Nodo"
+  },
+  {
+    "timestamp": "2026-11-03 18:53:50",
+    "hostname": "DESKTOP-COFQL6K",
+    "ip": "200.100.106.113",
+    "action": "Visualizando el Espacio Compartido",
+    "client_type": "PC / Nodo"
+  },
+  {
+    "timestamp": "2026-11-03 18:53:53",
+    "hostname": "DESKTOP-COFQL6K",
+    "ip": "200.100.106.113",
+    "action": "Visualizando el Espacio Compartido",
+    "client_type": "PC / Nodo"
+  },
+  {
+    "timestamp": "2026-11-03 18:53:55",
+    "hostname": "DESKTOP-COFQL6K",
+    "ip": "200.100.106.113",
+    "action": "Visualizando el Espacio Compartido",
+    "client_type": "PC / Nodo"
+  },
+  {
+    "timestamp": "2026-11-03 18:53:58",
+    "hostname": "DESKTOP-COFQL6K",
+    "ip": "200.100.106.113",
+    "action": "Visualizando el Espacio Compartido",
+    "client_type": "PC / Nodo"
+  },
+  {
+    "timestamp": "2026-11-03 18:54:01",
+    "hostname": "DESKTOP-COFQL6K",
+    "ip": "200.100.106.113",
+    "action": "Visualizando el Espacio Compartido",
+    "client_type": "PC / Nodo"
+  },
+  {
+    "timestamp": "2026-11-03 18:54:02",
+    "hostname": "DESKTOP-COFQL6K",
+    "ip": "200.100.106.113",
+    "action": "Visualizando el Espacio Compartido",
+    "client_type": "PC / Nodo"
+  },
+  {
+    "timestamp": "2026-11-03 18:54:03",
+    "hostname": "DESKTOP-COFQL6K",
+    "ip": "200.100.106.113",
+    "action": "Visualizando el Espacio Compartido",
+    "client_type": "PC / Nodo"
+  },
+  {
+    "timestamp": "2026-11-03 18:54:05",
+    "hostname": "DESKTOP-COFQL6K",
+    "ip": "200.100.106.113",
+    "action": "Visualizando el Espacio Compartido",
+    "client_type": "PC / Nodo"
+  },
+  {
+    "timestamp": "2026-11-03 18:54:08",
+    "hostname": "DESKTOP-COFQL6K",
+    "ip": "200.100.106.113",
+    "action": "Visualizando el Espacio Compartido",
+    "client_type": "PC / Nodo"
+  },
+  {
+    "timestamp": "2026-11-03 18:54:11",
+    "hostname": "DESKTOP-COFQL6K",
+    "ip": "200.100.106.113",
+    "action": "Visualizando el Espacio Compartido",
+    "client_type": "PC / Nodo"
+  },
+  {
+    "timestamp": "2026-11-03 18:54:13",
+    "hostname": "DESKTOP-COFQL6K",
+    "ip": "200.100.106.113",
+    "action": "Visualizando el Espacio Compartido",
+    "client_type": "PC / Nodo"
+  },
+  {
+    "timestamp": "2026-11-03 18:54:16",
+    "hostname": "DESKTOP-COFQL6K",
+    "ip": "200.100.106.113",
+    "action": "Visualizando el Espacio Compartido",
+    "client_type": "PC / Nodo"
+  },
+  {
+    "timestamp": "2026-11-03 18:54:18",
+    "hostname": "DESKTOP-COFQL6K",
+    "ip": "200.100.106.113",
+    "action": "Visualizando el Espacio Compartido",
+    "client_type": "PC / Nodo"
+  },
+  {
+    "timestamp": "2026-11-03 18:54:20",
+    "hostname": "DESKTOP-COFQL6K",
+    "ip": "200.100.106.113",
+    "action": "Visualizando el Espacio Compartido",
+    "client_type": "PC / Nodo"
+  },
+  {
+    "timestamp": "2026-11-03 18:54:23",
+    "hostname": "DESKTOP-COFQL6K",
+    "ip": "200.100.106.113",
+    "action": "Visualizando el Espacio Compartido",
+    "client_type": "PC / Nodo"
+  },
+  {
+    "timestamp": "2026-11-03 18:54:26",
+    "hostname": "DESKTOP-COFQL6K",
+    "ip": "200.100.106.113",
+    "action": "Visualizando el Espacio Compartido",
+    "client_type": "PC / Nodo"
+  },
+  {
+    "timestamp": "2026-11-03 18:54:28",
+    "hostname": "DESKTOP-COFQL6K",
+    "ip": "200.100.106.113",
+    "action": "Visualizando el Espacio Compartido",
+    "client_type": "PC / Nodo"
+  },
+  {
+    "timestamp": "2026-11-03 18:54:30",
+    "hostname": "DESKTOP-COFQL6K",
+    "ip": "200.100.106.113",
+    "action": "Visualizando el Espacio Compartido",
+    "client_type": "PC / Nodo"
+  },
+  {
+    "timestamp": "2026-11-03 18:55:01",
+    "hostname": "DESKTOP-COFQL6K",
+    "ip": "200.100.106.113",
+    "action": "Visualizando el Espacio Compartido",
+    "client_type": "PC / Nodo"
+  },
+  {
+    "timestamp": "2026-11-03 19:03:20",
+    "hostname": "DESKTOP-COFQL6K",
+    "ip": "200.100.106.113",
+    "action": "Visualizando el Espacio Compartido",
+    "client_type": "PC / Nodo"
+  }
+]
